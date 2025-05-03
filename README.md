@@ -3,7 +3,7 @@ CURSO DE TECNOLOGIA EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS
 MÓDULO: DESENVOLVIMENTO MOBILE  
 
 Aluno: Gabriel de Lima Mufalani de Assis  
-Professor: Artur Brandt  
+Professor: Oswaldo  
 Data: 02 de maio de 2025  
 
 RELATÓRIO DE ATIVIDADE PRÁTICA  
