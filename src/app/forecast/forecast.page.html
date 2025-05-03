@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar color="custom-toolbar" class="custom-header">
+    <ion-buttons slot="start">
+      <button class="custom-back-icon-only" (click)="voltar()">
+        <svg height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+          <path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path>
+        </svg>
+      </button>
+    </ion-buttons>       
+    <div class="title-absolute-center">
+      <span class="page-title">Previsão</span>
+      <div class="title-underline"></div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="input__container">
+    <div class="shadow__input"></div>
+    <button class="input__button__shadow" (click)="buscarPrevisao()">
+      <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" height="20px" width="20px">
+        <path d="M4 9a5 5 0 1110 0A5 5 0 014 9zm5-7a7 7 0 104.2 12.6.999.999 0 00.093.107l3 3a1 1 0 001.414-1.414l-3-3a.999.999 0 00-.107-.093A7 7 0 009 2z"
+          fill-rule="evenodd" fill="#17202A"></path>
+      </svg>
+    </button>
+    <input
+      type="text"
+      class="input__search"
+      placeholder="Digite o nome da cidade"
+      [(ngModel)]="city"
+      (keyup.enter)="buscarPrevisao()"
+    />
+  </div>  
+
+  <ion-card *ngIf="forecastData">
+    <ion-card-header>
+      <ion-card-title>Previsão para {{ city }}</ion-card-title>
+      <ion-card-subtitle>
+        {{ forecastData.list[0]?.dt_txt | date: 'fullDate' }}
+      </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row class="ion-text-center" *ngFor="let item of forecastData.list; let i = index">
+          <ion-col size="4">
+            <p><strong>{{ item.dt_txt | date: 'shortTime' }}</strong></p>
+              <img [src]="'https://openweathermap.org/img/wn/' + item.weather[0].icon + '.png'" alt="Ícone clima" />          
+            <p>{{ item.weather[0].description }}</p>
+          </ion-col>
+          <ion-col size="4">
+            <p>🌡️ Temp: {{ item.main.temp }}°C</p>
+            <p>💧 Humidade: {{ item.main.humidity }}%</p>
+          </ion-col>
+          <ion-col size="4">
+            <p>🌬️ Vento: {{ item.wind.speed }} m/s</p>
+          </ion-col>
+          <ion-col size="12">
+            <ion-item lines="full"></ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-text color="danger" *ngIf="erro">
+    <p class="ion-text-center">{{ erro }}</p>
+  </ion-text>
+</ion-content>
