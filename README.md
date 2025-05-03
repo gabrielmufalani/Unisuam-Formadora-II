@@ -49,7 +49,67 @@ O aplicativo é composto por três páginas principais:
 
 5. CÓDIGOS PRINCIPAIS
 
-5.1 forecast.page.ts (Previsão do Tempo)
+5.1 current-weather.page.ts (Clima Atual)
+
+```ts
+
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
+
+import { WeatherService } from '../services/weather.service';
+
+@Component({
+  selector: 'app-current-weather',
+  standalone: true,
+  imports: [CommonModule, IonicModule, FormsModule],
+  templateUrl: './current-weather.page.html',
+  styleUrls: ['./current-weather.page.scss'],
+})
+export class CurrentWeatherPage {
+  city: string = '';
+  weatherData: any;
+  erro: string = '';
+
+  constructor(private weatherService: WeatherService) {}
+  voltar() {
+    window.history.back();
+  }
+
+  async buscarClima() {
+    this.erro = '';
+    try {
+      this.weatherData = await this.weatherService.getCurrentWeather(this.city);
+    } catch (error) {
+      this.erro = 'Erro ao buscar o clima. Verifique o nome da cidade.';
+      this.weatherData = null;
+    }
+  }
+}
+
+```
+
+5.2 home.page.ts
+
+```ts
+
+import { Component } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [IonicModule, RouterModule],
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
+})
+export class HomePage {}
+
+
+```
+5.3 forecast.page.ts (Previsão do Tempo)
 
 ```ts
 export class ForecastPage {
@@ -74,14 +134,14 @@ export class ForecastPage {
   }
 }
 ```
-5.2 weather.service.ts (Serviço de API)
+5.4 weather.service.ts (Serviço de API)
 
 ```ts
 @Injectable({
   providedIn: 'root',
 })
 export class WeatherService {
-  private apiKey = 'sua_chave_aqui';
+  private apiKey = 'chave_api';
   private baseUrl = 'https://api.openweathermap.org/data/2.5';
 
   constructor(private http: HttpClient) {}
