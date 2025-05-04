@@ -182,6 +182,6 @@ Tela de Previsão:
 
 ---
 
-8.CONCLUSÃO
+8. CONCLUSÃO
 
 A atividade permitiu aplicar na prática os conhecimentos adquiridos no módulo de Desenvolvimento Mobile. Foi possível desenvolver um aplicativo funcional com múltiplas páginas, consumo de APIs em tempo real e estilização moderna. A experiência reforçou a importância da integração entre frontend e backend em aplicativos móveis modernos.
